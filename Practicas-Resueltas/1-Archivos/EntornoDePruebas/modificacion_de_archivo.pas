@@ -1,5 +1,5 @@
 
-program mostrar_archivo;
+program modificacion_de_archivo;
 Type
   alumno = record
     nombre: string;
