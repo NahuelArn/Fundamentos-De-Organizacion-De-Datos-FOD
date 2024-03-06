@@ -57,7 +57,7 @@ begin
       Writeln('Ingrese la edad del alumno (corta con 0): ');
       readln(alu.edad);
     end;
-  close(arch_siu_logico); //cerrar archivo
+  close(arch_siu_logico); //cerrar archivo    TRANSFIERE LA INFORMACION DEL BUFFER AL DISCO
 
   //------------------------------------Imprimir_Archivo-----------------------------------
   imprimir_archivo(arch_siu_logico);  //se podria decir que funciona como un vector, "el archivo" guarda todo en binario, No en texto plano como un txt
