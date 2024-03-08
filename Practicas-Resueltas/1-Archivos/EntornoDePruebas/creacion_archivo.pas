@@ -15,7 +15,7 @@ begin
   Writeln('Ingres el nombre del archivo: '); //creo q es el nombre q va tener el txt (a eso llaman fisico)
   readln(nombre_del_archivo_fisico);
   Assign(arch_siu_logico, nombre_del_archivo_fisico); //Assign ( n_lógico, N_físico)  // aca hace tipo un enlaze supongo
-  rewrite(arch_siu_logico); //se crea el archivo
+  rewrite(arch_siu_logico); //se crea el archivo y lo abre
   Writeln('Ingrese la edad del alumno (corta con 0): ');//mientras no sea 0, voy cargando el archivo con las edades de alumnos?
   readln(alu.edad);
   while (alu.edad <> 0)do

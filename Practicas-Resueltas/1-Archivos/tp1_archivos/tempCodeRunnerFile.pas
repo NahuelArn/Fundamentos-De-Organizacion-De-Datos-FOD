@@ -1,0 +1,1 @@
+lose(archivo_logico)

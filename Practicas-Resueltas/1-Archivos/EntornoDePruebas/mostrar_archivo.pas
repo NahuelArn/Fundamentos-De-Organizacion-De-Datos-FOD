@@ -19,7 +19,7 @@ begin
   while not eof(arch_siu_logico)do //mientras no llegue al final del archivo
     begin
       i:= i+1;
-      read(arch_siu_logico, alu);
+      read(arch_siu_logico, alu); //se obtiene el elemento desde el archivo
       writeln('edad en la pos: ', i, ': [ ',alu.edad,' ]' );
     end;
     close(arch_siu_logico);
