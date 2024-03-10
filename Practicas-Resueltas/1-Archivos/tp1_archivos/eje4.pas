@@ -135,14 +135,14 @@ end;
 //--------------aa-----------------------------
 procedure existe_el_empleado(var archivo_logico: archivo; var ok:Boolean; num_empleado: integer);
 var
-  num_actual: integer;
+  empl: empleado;
   sigo: Boolean;
 begin
-  sigo: true; //aca no abro el archivo por q vendria a ser un sub sub modulo, ya lo abri en el modulo anterior
+  sigo:= true; //aca no abro el archivo por q vendria a ser un sub sub modulo, ya lo abri en el modulo anterior
   while not eof(archivo_logico) and (sigo)do
     begin
-      read(archivo_logico, num_actual);
-      if(num_actual = num_empleado)then
+      read(archivo_logico, empl);
+      if(empl.num_empleado = num_empleado)then
         sigo:= false;
     end;
   ok:= sigo;
@@ -173,16 +173,83 @@ begin
     end;
   close(archivo_logico);
 end;
+{b. Modificar edad a uno o más empleados.}
+procedure buscar_modificar(var archivo_logico:archivo; num_busqueda: integer);
+var
+  empl: empleado;
+begin
+  while not eof(archivo_logico)do
+    begin
+      read(archivo_logico,empl);
+      if(empl.num_empleado = num_busqueda)then
+        begin
+          Writeln('Ingrese a que edad, desea modificar');
+          readln(empl.edad);
+          write(archivo_logico,empl);
+        end;
+    end;
+end;
 
 procedure opcion_bb(var archivo_logico: archivo);
 var
   num_busqueda: integer;
   prosiga: boolean;
+  aux: string;
 begin
+  prosiga:= true;
+  reset(archivo_logico);
   while(prosiga)do
     begin
-      
+      Writeln('Ingresa un numero de empleado al cual modificar su edad');
+      readln(num_busqueda);
+      buscar_modificar(archivo_logico,num_busqueda);
+      Writeln('Ingrese true, false para salir');
+      readln(aux);
+      prosiga:= aux = 'true';
     end;
+  Close(archivo_logico);
+end;
+
+{c. Exportar el contenido del archivo a un archivo de texto llamado
+“todos_empleados.txt”.}
+procedure opcion_cc(var archivo_logico: archivo);
+var 
+  archivo_nuevo: text;
+  empl: empleado;
+begin
+  reset(archivo_logico);
+  Assign(archivo_nuevo, 'todos_empleados.txt');
+  rewrite(archivo_logico);
+  while not eof(archivo_logico)do
+    begin
+      read(archivo_logico,empl);  //obtengo
+      // write(archivo_nuevo, empl);  //escribo[NO ANDO]    //puede no andar ya que es un txt, no sabe q es un registro, tendria sentido q no ande --------+++++++++++++++++++--------------------
+      write(archivo_nuevo, {cargo campo x campo}'Apellido: ',empl.apellido, 'Nombre: ',empl.nombre, 'Numero de empleado: ',empl.num_empleado, ' Edad empleado: ',empl.edad, ' Ingrese dni: ',empl.dni, ' | ');
+    end;
+  close(archivo_logico);
+  close(archivo_nuevo);
+end;
+
+{Exportar a un archivo de texto llamado: “faltaDNIEmpleado.txt”, los empleados
+que no tengan cargado el DNI (DNI en 00).}
+
+procedure opcion_dd(var archivo_logico: archivo);
+var
+  archivo_texto: text;
+  empl: empleado;
+begin
+  reset(archivo_logico);
+  Assign(archivo_texto, 'faltaDniEmpleado.txt');
+  rewrite(archivo_texto);
+  while not eof(archivo_logico)do
+    begin
+      read(archivo_logico, empl);
+      if(empl.dni = 00)then
+        // write(archivo_texto, empl); //mismo problema de antes
+        write(archivo_texto, 'Apellido: ',empl.apellido, 'Nombre: ',empl.nombre, 'Numero de empleado: ',empl.num_empleado, ' Edad empleado: ',empl.edad, ' Ingrese dni: ',empl.dni, ' | ');
+    end;
+  close(archivo_logico);
+  close(archivo_texto);
 end;
 
 var
@@ -198,10 +265,11 @@ begin
     Writeln();
     Writeln('Ingrese "A" para crear un archivo, con datos de empleados leidos por teclado');
     Writeln('Ingrese "B" para abrir el archivo anteriormente generado');
-    Writeln('Ingrese "AA" para anhadir uno o mas empleados al final del archivo con sus datos ingresados por teclado'); //controlar unicidad
-    Writeln('Ingrese "BB" para modificar a uno o mas empleados');
-    Writeln('Ingrese "CC" para exportar el contenido del archivo a un archivo de texto llamado "todos_empleados.txt"');
-    Writeln('Ingrese "C" para salir');
+    Writeln('Ingrese "C" para anhadir uno o mas empleados al final del archivo con sus datos ingresados por teclado'); //controlar unicidad
+    Writeln('Ingrese "D" para modificar a uno o mas empleados');
+    Writeln('Ingrese "E" para exportar el contenido del archivo a un archivo de texto llamado "todos_empleados.txt"');
+    Writeln('Ingrese "F" para exportar un nuevo archivo de texto con los empleados sin el dni 00');
+    Writeln('Ingrese "G" para salir');
     readln(opcion); // Debes leer la opción nuevamente después de mostrar las opciones al usuario
     case opcion of  //EL Case lleva un enddddddddddddddddddddd
       'A': 
@@ -212,29 +280,34 @@ begin
       begin
         opciones_b(archivo_logico);
       end;
-      'AA':
+      'C': //agregado --------------------------------------
         begin
           opcion_aa(archivo_logico);
         end;
-      'BB':
+      'D':
         begin
           opcion_bb(archivo_logico);
         end;
-      'CC':
+      'E':
         begin
           opcion_cc(archivo_logico);
         end;
-      'C': 
-      begin
-        salida := true; // Si el usuario elige 'C', salimos del bucle
-      end;
+      'F':
+        begin
+          opcion_dd(archivo_logico);
+        end;  //--------------------------------------
+      'G': 
+        begin
+          salida := true; // Si el usuario elige 'G', salimos del bucle
+        end;
     else
       begin
         Writeln('!!!!!!!!!!!!!!!!!!!');
-        Writeln('Opcion invalida. Por favor, ingrese una opcion valida (A, B o C).');
+        Writeln('Opcion invalida. Ingrese una opcion valida (A, B, C, D, E, F o G).');
         Writeln('!!!!!!!!!!!!!!!!!!!');
       end;
     end;
   end;
   Writeln('------------------------------------------------------');
 end.
+
