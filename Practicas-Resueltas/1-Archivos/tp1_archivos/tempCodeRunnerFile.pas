@@ -1,1 +1,1 @@
-lose(archivo_logico)
+      // aux:= ('cod celular: ',cel.cod_celular, ' nombre: ',cel.nombre, ' descripcion: ',cel.descripcion,' marca: ',cel.marca, ' precio: ',cel.precio, ' stock minimo: ',cel.stock_minimo, ' stock disponible: ', cel.stock_disponible);
