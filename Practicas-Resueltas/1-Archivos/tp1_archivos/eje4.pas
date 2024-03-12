@@ -206,6 +206,8 @@ begin
       Writeln('Ingrese true, false para salir');
       readln(aux);
       prosiga:= aux = 'true';
+      if(prosiga)then
+        Seek(archivo_logico, 0); //tengo q volver  resetear el indice o va comenzar desde la ultima pos q recorrio
     end;
   Close(archivo_logico);
 end;
