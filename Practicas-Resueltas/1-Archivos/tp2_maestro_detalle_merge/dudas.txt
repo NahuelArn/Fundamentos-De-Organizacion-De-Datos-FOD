@@ -1,0 +1,2 @@
+Eje1 
+  sino especifica de que tipo hacer los archivos (podemos mandarle txt o binario segun veamos convenientes? o hay algun orden de prioridad)
