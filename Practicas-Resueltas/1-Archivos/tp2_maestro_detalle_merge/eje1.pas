@@ -60,16 +60,12 @@ begin
         begin
           acumulador.monto_comision:= empl.monto_comision+ acumulador.monto_comision;
           readln(archivo_provisto, empl.cod_empleado, empl.monto_comision,empl.nombre);
-          WriteLn('LLego aca0?');
         end;
         //sali, 2 motivos, finalizo el recorrido o cambio de codigo
-        WriteLn('LLego aca1?');
         cargar_nuevo_archivo(archivo_compactado,acumulador);
-        WriteLn('LLego aca2?');
     end;
   close(archivo_provisto);
   close(archivo_compactado);
-  WriteLn('LLego aca2?');
 end;
 
 {test}
