@@ -1,6 +1,18 @@
-1 si no //cant materias cursadas / aprobadas
-1 no si
-5 si no
-6 si no
-3 si no
-3 si no
+1 
+si 
+no 
+1 
+no 
+si
+3 
+si 
+no
+3 
+si 
+no
+5 
+si 
+no
+6 
+si 
+no
