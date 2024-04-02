@@ -1,4 +1,4 @@
-program ConsultarAyudanteTemaReal;
+program ConsultarAyudanteTemaReal; //consultado, era como pensaba
 type
   empleado = record
     cod_empleado: integer;
