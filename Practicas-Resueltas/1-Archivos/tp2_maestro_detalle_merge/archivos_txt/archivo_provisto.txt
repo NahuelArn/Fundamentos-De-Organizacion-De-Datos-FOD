@@ -1,0 +1,5 @@
+1 100.0 messi 
+1 150.0 messi 
+1 100.0 messi 
+2 80.0 otamendi 
+3 70.0 emilianoMartinez 
