@@ -38,7 +38,7 @@ begin
   Readln(flor.codigo);  
 end;
 
-procedure opcion_a(var flor: tArchFlores; flor_reg: reg_flor);
+procedure opcion_a(var flor: tArchFlores; flor_reg: reg_flor);  //ALTAAAAA
 var
   puntero_cabecera: integer;
   cabecera: reg_flor;
@@ -82,7 +82,7 @@ begin
   Close(flor);
 end;
 
-procedure opcion_c(var flor: tArchFlores; del: reg_flor);
+procedure opcion_c(var flor: tArchFlores; del: reg_flor); //BAJAAAAA
 var
   r: reg_flor;
   c: reg_flor;

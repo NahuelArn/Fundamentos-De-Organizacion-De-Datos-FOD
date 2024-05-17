@@ -19,7 +19,9 @@
 }
 
 program eje6;
-
+const
+  valorAlto = 9999;
+  nombreMaestro = 'D:\Codigo\Fundamentos-De-Organizacion-De-Datos-FOD\Practicas-Resueltas\1-Archivos\tp3_bajas_archivos_secuenciales\eje6\archivo\maestro';
 type
   prenda = record
     cod_prenda: integer;
@@ -34,10 +36,6 @@ type
 
   prenda_baja = file of integer; // solo tiene el cod_prenda que va a ser dado de baja
 
-procedure cambio_de_temporada(var archivo_maestro: archivo_prenda_actual;var archivo_baja_logica: prenda_baja);
-begin
-  
-end;
 
 procedure crear_maestro(var archivo_maestro: archivo_prenda_actual);
 var
@@ -59,6 +57,85 @@ begin
   close(texto);
   close(archivo_maestro);
 end;
+
+procedure crear_baja_logica(var archivo_baja_logica:prenda_baja);
+var
+  cod_baja: integer;
+  direccion_inmutable: string;
+  texto: text;
+begin
+  direccion_inmutable:= 'D:\Escritorio\FOD\Fundamentos-De-Organizacion-De-Datos-FOD\Practicas-Resueltas\1-Archivos\tp3_bajas_archivos_secuenciales\eje6\archivo\arch_baja.txt';
+  assign (texto, direccion_inmutable);
+  reset(texto);
+  assign(archivo_baja_logica, 'D:\Escritorio\FOD\Fundamentos-De-Organizacion-De-Datos-FOD\Practicas-Resueltas\1-Archivos\tp3_bajas_archivos_secuenciales\eje6\archivo\archBaja');
+  Rewrite(archivo_baja_logica);
+  while (not eof (texto)) do
+    begin
+      readln(texto, cod_baja);
+      write(archivo_baja_logica, cod_baja);
+    end;
+  Close(archivo_baja_logica);
+  close(texto); 
+end;
+
+// procedure leer(var archivo_maestro: archivo_prenda_actual;var arch_baja: prenda);
+// begin
+//   if(not eof(archivo_maestro))then
+//     read(archivo_maestro, arch_baja)
+//   else
+//     arch_baja.cod_prenda:= valorAlto  
+// end;
+
+procedure cambio_de_temporada(var archivo_maestro:archivo_prenda_actual;var archivo_baja_logica: prenda_baja); 
+var
+  cod_baja: integer;
+  arch_baja: prenda;
+  encontre: boolean;
+begin
+  reset(archivo_maestro);
+  reset(archivo_baja_logica);
+  while not eof(archivo_baja_logica) do //como no esta ordenado, agoto las bajas
+    begin      
+      read(archivo_baja_logica, cod_baja);
+      encontre:= false;
+      while not eof(archivo_maestro) and (not encontre)do //recorro por cada baja posible
+        begin
+          read(archivo_maestro, arch_baja);
+          if (arch_baja.cod_prenda = cod_baja) then
+            begin
+              encontre = true;
+              arch_baja.cod_prenda:= arch_baja.cod_prenda * -1;
+              seek(archivo_maestro, filePos(archivo_maestro)-1);
+              write(archivo_maestro,arch_baja);
+            end;
+        end;
+      seek(archivo_maestro,0);
+    end;
+  Close(archivo_maestro);
+  close(archivo_baja_logica);
+end;
+
+procedure compactacion(var m: archivo_prenda_actual);
+var
+  p: prenda;
+  arch_aux: archivo_prenda_actual;
+begin
+  assign(arch_aux, 'D:\Escritorio\FOD\Fundamentos-De-Organizacion-De-Datos-FOD\Practicas-Resueltas\1-Archivos\tp3_bajas_archivos_secuenciales\eje6\archivo');
+  rewrite(arch_aux);
+  while not eof(m)do
+    begin
+      read(m, p);
+      if(p.cod_prenda > 0)then
+        begin
+          write(arch_aux, p);
+        end;
+    end;
+  close(m);
+  close(arch_aux);
+  erase(m);
+  rename(arch_aux,nombreMaestro);
+end;
+
 
 procedure imprimi(var archivo_maestro: archivo_prenda_actual);
 var
@@ -82,10 +159,10 @@ var
   archivo_baja_logica: prenda_baja;
 begin
   crear_maestro(archivo_maestro);
-  
+  crear_baja_logica(archivo_baja_logica);
+  cambio_de_temporada(archivo_maestro, archivo_baja_logica); 
+
   // imprimi(archivo_maestro);
-  // crear_baja_logica(archivo_baja_logica);
   // Assign(archivo_baja_logica, 'D:\Codigo\Fundamentos-De-Organizacion-De-Datos-FOD\Practicas-Resueltas\1-Archivos\tp3_bajas_archivos_secuenciales\eje6\archivo\arch_baja.txt');
   // reset(archivo_baja_logica);
-  // cambio_de_temporada(archivo_maestro, archivo_baja_logica);
 end.
