@@ -76,11 +76,14 @@ procedure compactar(var arch: archivo);
         write(arch, ave);
         seek(arch, filesize(arch)-i);
         truncate(arch);
-      end;
-    if (posActual = pos) then //No encontro un registro valido, entonces trunca en el mismo por que vendria ser el mismo el ultimo valido
+      end
+    else 
       begin
-        seek(arch, pos);
-        truncate(arch);
+        if (posActual = pos) then //No encontro un registro valido, entonces trunca en el mismo por que vendria ser el mismo el ultimo valido
+          begin
+            seek(arch, pos);
+            truncate(arch);
+          end;
       end;
   end;
 var
