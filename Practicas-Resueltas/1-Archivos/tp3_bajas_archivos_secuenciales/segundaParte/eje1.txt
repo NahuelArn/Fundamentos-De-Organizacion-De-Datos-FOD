@@ -1,0 +1,44 @@
+la logica seria
+
+por cada elemento del detalle, hace un impacto al maestro
+mientras no se termine el detalle{
+  agarro[i]
+  busco en el maestro, impacto
+  i++;
+}
+
+se podria hacer algo asi, faltaria resolver
+--llevando algo para indicar que ese producto ya impacto
+
+mientras no se termine el detalle{
+  i:= 0
+  actual := agarro el primer detalle[i]
+  var acumulador
+  b:= i+1
+  mientras no se termine el detalle detalle{
+    si detalle[i] = detalle[b]
+      acumulador
+    b++
+  }
+  buscar detalle[i] en maestro
+  si encontre
+    impacto al maestro con el acumulador 
+}
+
+
+--------------------------------------------------
+2
+llevar un lista de archivos
+  cada archivo en la lista representaria una localidad
+
+  cuando agrego, primero busco si el primer elemento de cada archivo es igual, para 
+  saber si ya lo tengo, sino creo un nuevo archivo para esa localidad
+
+despues seria recorrer la lista e ir imprimiendo la totalidad de votos por localidad
+
+
+
+------------------------------------------------------
+3
+
+misma logica q el 2
