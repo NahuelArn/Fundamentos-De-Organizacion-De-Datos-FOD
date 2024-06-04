@@ -62,16 +62,16 @@ procedure minimo(var vD: vecDetalle;var vDR: vecRegistros;var min: venta);
 var
   i,pos: integer;
 begin
-  min.codProducto:= valorAlto;
+  min.codProducto:= valorAlto;  //si tengo mas criterios de orden, tengo q iniciarlo en valor alto el min
   for i:= 1 to N do //se encarga de iterar en el vec registro de detalles
     begin
-      if(vDR[i] < min.codProducto)then
+      if(vDR[i] < min.codProducto)then  //filtra al minimo
         begin
           min:= vDR[i];
           pos:= i;
         end;
     end;
-  if(min.codProducto <> valorAlto)then
+  if(min.codProducto <> valorAlto)then //avanza en 1 del minimo encontrado
     begin
       min:= vDR[pos];
       leer(vD[pos], vDR[pos]);
