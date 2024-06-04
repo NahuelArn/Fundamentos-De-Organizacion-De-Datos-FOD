@@ -121,7 +121,6 @@ procedure actualizarMaestro2Detalle(var archM: archMaestro;var vD: vectorDetalle
   end;
   
   procedure minimo(var vD: vectorDetalle;var vDR:vectorDetalleRegistro;var min:actualizacion);
-
     procedure leer(var archivo: archDetalle;var dato: actualizacion);
     begin
       if(not eof(archivo))then
@@ -135,6 +134,7 @@ procedure actualizarMaestro2Detalle(var archM: archMaestro;var vD: vectorDetalle
     min.data.destino:= valorAlto;
     for i:= 1 to dimFdetalle do
       begin
+        // destino más fecha y hora de salida
         if(vDR[i].data.destino < min.data.destino) and ((vDR[i].data.fecha < min.data.fecha) and (vDR[i].data.horaDeSalida < min.data.horaDeSalida)) then
           begin
             min:= vDR[i];
@@ -146,7 +146,7 @@ procedure actualizarMaestro2Detalle(var archM: archMaestro;var vD: vectorDetalle
         min:= vDR[pos];
         leer(vD[pos],vDR[pos]);
       end;
-  end;
+    end;
   procedure agregarAtras(var l,ult: lista; min: actualizacion);
   var
     nue: lista;
