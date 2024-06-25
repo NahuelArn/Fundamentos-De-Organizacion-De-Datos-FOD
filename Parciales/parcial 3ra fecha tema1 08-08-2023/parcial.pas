@@ -147,6 +147,7 @@ var
   m: pMaestro;
 begin
   asignarDetalles(vD);
+  assign(m, 'YaCargado');
   actualizarMaestro(m,vD,vDR);
 end.
 
